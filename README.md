@@ -37,6 +37,9 @@ These models also allow for richer human-model interaction: accuracy improves si
 ![teaser](https://github.com/yewsiang/ConceptBottleneck/blob/master/figures/tti_qual_examples.png)
 
 ## Prerequisites
+
+Python 3.6.13 environment with gpu available
+
 We used the same environment as Codalab's default gpu setting, please run `pip install -r requirements.txt`. Main packages are:
 - matplotlib 3.1.1
 - numpy 1.17.1
@@ -46,6 +49,9 @@ We used the same environment as Codalab's default gpu setting, please run `pip i
 - scikit-learn 0.21.3
 - torch 1.1.0
 - torchvision 0.4.0
+
+
+pip install torch===1.7.1 torchvision===0.4.0 torchaudio===0.7.0 -f https://download.pytorch.org/whl/torch_stable.html
 
 Note that we updated Pillow and removed tensorflow-gpu and tensorboard from requirements.txt.  
 
