@@ -15,16 +15,16 @@ OR) You can get `CUB_processed` from Step 1. above with the following steps
 ##### 1. Independent
 Train the x -> c model and extract the predicted c logits:
 ```
-python3 src/experiments.py cub Concept_XtoC --seed 1 -ckpt 1 -log_dir ConceptModel__Seed1/outputs/ -e 1000 -optimizer sgd -pretrained -use_aux -use_attr -weighted_loss multiple -data_dir CUB_processed/class_attr_data_10 -n_attributes 112 -normalize_loss -b 64 -weight_decay 0.00004 -lr 0.01 -scheduler_step 1000 -bottleneck
-python3 src/CUB/generate_new_data.py ExtractConcepts --model_path ConceptModel__Seed1/outputs/best_model_1.pth --data_dir CUB_processed/class_attr_data_10 --out_dir ConceptModel1__PredConcepts
+python experiments.py cub Concept_XtoC --seed 1 -ckpt 1 -log_dir ConceptModel__Seed1/outputs/ -e 1000 -optimizer sgd -pretrained -use_aux -use_attr -weighted_loss multiple -data_dir CUB_processed/class_attr_data_10 -n_attributes 112 -normalize_loss -b 64 -weight_decay 0.00004 -lr 0.01 -scheduler_step 1000 -bottleneck
+python CUB/generate_new_data.py ExtractConcepts --model_path ConceptModel__Seed1/outputs/best_model_1.pth --data_dir CUB_processed/class_attr_data_10 --out_dir ConceptModel1__PredConcepts
 ```
 Train the c -> y model:
 ```
-python3 src/experiments.py cub Independent_CtoY --seed 1 -log_dir IndependentModel_WithVal___Seed1/outputs/ -e 500 -optimizer sgd -use_attr -data_dir CUB_processed/class_attr_data_10 -n_attributes 112 -no_img -b 64 -weight_decay 0.00005 -lr 0.001 -scheduler_step 1000 
+python experiments.py cub Independent_CtoY --seed 1 -log_dir IndependentModel_WithVal___Seed1/outputs/ -e 500 -optimizer sgd -use_attr -data_dir CUB_processed/class_attr_data_10 -n_attributes 112 -no_img -b 64 -weight_decay 0.00005 -lr 0.001 -scheduler_step 1000 
 ```
 Inference on test set when you have 3 seeds:
 ```
-python3 src/CUB/inference.py -model_dirs ConceptModel__Seed1/outputs/best_model_1.pth ConceptModel__Seed2/outputs/best_model_2.pth ConceptModel__Seed3/outputs/best_model_3.pth -model_dirs2 IndependentModel_WithVal___Seed1/outputs/best_model_1.pth IndependentModel_WithVal___Seed2/outputs/best_model_2.pth IndependentModel_WithVal___Seed3/outputs/best_model_3.pth -eval_data test -use_attr -n_attributes 112 -data_dir CUB_processed/class_attr_data_10 -bottleneck -use_sigmoid -log_dir IndependentModel__WithValSigmoid/outputs
+python CUB/inference.py -model_dirs ConceptModel__Seed1/outputs/best_model_1.pth ConceptModel__Seed2/outputs/best_model_2.pth ConceptModel__Seed3/outputs/best_model_3.pth -model_dirs2 IndependentModel_WithVal___Seed1/outputs/best_model_1.pth IndependentModel_WithVal___Seed2/outputs/best_model_2.pth IndependentModel_WithVal___Seed3/outputs/best_model_3.pth -eval_data test -use_attr -n_attributes 112 -data_dir CUB_processed/class_attr_data_10 -bottleneck -use_sigmoid -log_dir IndependentModel__WithValSigmoid/outputs
 ```
 ##### 2. Sequential
 Train the x -> c model:
